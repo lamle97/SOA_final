@@ -1,0 +1,53 @@
+package com.dhp.compute;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.sql.*;
+
+@Path("/account-services")
+public class AccountServices {
+	
+	@GET
+	@Path("/sign-in/{username}/{password}/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean signIn(@PathParam("username") String username, @PathParam("password") String password)
+	{
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String connectionUrl = "jdbc:mysql://localhost:3306/demo504070";
+			String connectionUser = "root";
+			String connectionPassword = "";
+			conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT * FROM account");
+			while (rs.next())
+			{
+				String u = rs.getString("username");
+				String p = rs.getString("password");
+				if(username.equals(u) && password.equals(p))
+					return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (conn != null) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		
+		return false;
+	}
+	
+	@POST
+	@Path("/sign-in-2")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public boolean signIn2(@FormParam("username") String username, @FormParam("password") String password)
+	{
+		return true;
+	}
+
+}
