@@ -156,9 +156,7 @@ if(isset($_REQUEST['ModelId'])){
 
                                 </select>
                             </div>
-                            </br>
-                            </br>
-                            </br>
+                           
 
                             <div class="product">
 

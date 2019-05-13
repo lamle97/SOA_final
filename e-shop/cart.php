@@ -283,16 +283,20 @@ $categories = json_decode(getBrands(),true);
         <?php
         if(isset($_SESSION['giohang'])) {
             ?>
+            <div class="contain">
+            <table border="2" bordercolor ="orange" >
         <div class="shopping-cart">
-            <div class="column-labels">
-                <label class="product-image">Image</label>
-                <label class="product-details">Product</label>
-                <label class="product-price">Price</label>
-                <label class="product-quantity">Quantity</label>
-                <label class="product-removal">Remove</label>
-                <label class="product-line-price">Total</label>
-            </div>
-
+        <tr>
+                <th class="product-image">Image</th>
+                <th class="product-details">Product</th>
+                <th class="product-price">Price </th>
+                <th class="product-quantity">Quantity</th>
+                <th class="product-line-price">PriceTol</th>
+                <th class="product-removal">Remove</th>
+               
+        </tr>
+        <tbody>
+        <tr>
             <?php
 
             $count = 0;
@@ -304,41 +308,48 @@ $categories = json_decode(getBrands(),true);
                 $GrandTotal = $GrandTotal + $sum;
                 ?>
                 <div class="product">
-                    <div class="product-image">
-                        <img src="img/<?= $p["image"]; ?>.png">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-title"><?= $p['model'] ?></div>
-                        <p class="product-description" style="width: 1000px">
+                    <td class="product-image">
+                        <img src="img/<?= $p["image"]; ?>.png" height=150 width=200></img>
+                    </td>
+                    <td class="product-details" height =100 width =100>
+                        <div class="product-title" text ="text-align"><?= $p['model'] ?></div>
+                        <p class="product-description" style="width: 700px">
                             Màu : <?= $p['color'] ?> </br>
                             Dung lượng : <?= $p['storage'] ?> GB
                         </p>
-                    </div>
-                    <div class="product-price"><?= number_format($p['price'], 0) ?>đ</div>
-                    <div class="product-quantity">
+                    </td>
+                    <td class="product-price"><?= number_format($p['price'], 0) ?>đ</td>
+                    <td class="product-quantity">
                         <input id ="quan-pro-<?=  $count ?>" type="number" value="<?= $p['soluong'] ?>" min="1" max="<?= $p['maxQuantity'] ?>"
                                onchange="checkQuantity(<?=  $count ?>,<?= $p['idDetail'] ?>,<?= $p['maxQuantity'] ?>)">
-                    </div>
-                    <div class="product-removal">
+                    </td>
+                    <td class="product-removal">
                         <button class="remove-product" onclick="xoaCart(<?= $p['idDetail'] ?>)">
                             Remove
                         </button>
-                    </div>
-                    <div class="product-line-price"><?= number_format($sum, 0) ?></div>
+                    </td>
+                    <td class="product-line-price"><?= number_format($sum, 0) ?></td>
+                    </tr>
                 </div>
             <?php
-            }
-
-            ?>
-
-
+            }?>
+<tbody>
+            </table>
+            </div>
+            <table>
+            
+            <tr>
+            <th class="product-line-price">Total</th>
+            </tr>
+        
+            
 
             <div class="totals">
 
-                <div class="totals-item totals-item-total">
+                <td class="totals-item totals-item-total">
                     <label>Grand Total</label>
                     <div class="totals-value" id="cart-total"><?= number_format($GrandTotal, 0) ?></div>
-                </div>
+                </td>
             </div>
 
             <button class="checkout" onclick="checkout()">Checkout</button>
@@ -347,6 +358,7 @@ $categories = json_decode(getBrands(),true);
             <?php
         }
     ?> </div>
+    </table>
   
         </div>
     </div>

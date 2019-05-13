@@ -19,8 +19,8 @@ import com.dhp.models.*;
 
 public class EmailHandle {
 
-	private static final String username = "";
-	private static final String password = "";	
+	private static final String username = "anhhao1996@gmail.com";
+	private static final String password = "ANHhao2411";	
 	
 	private static String getSubject() {
 		return "Announcement from MobileShop " + getNow();
@@ -64,18 +64,18 @@ public class EmailHandle {
 	public static boolean sendEmail(String email,Order order) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.port", "587");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
-
-		Session session = Session.getDefaultInstance(props,
+		props.put("mail.smtp.port", "587");		
+		
+		Session session = Session.getInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(username, password);
 				}
 			});
-
+        
 		try {			
 			String subject = getSubject();
 			String content = getContent(email,order);
